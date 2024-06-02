@@ -1,5 +1,5 @@
 {
-  "name": "file_metadata",
+  "name": "tgj-fcc-file-metadata",
   "version": "0.0.1",
   "description": "File Metadata Microservice project from freeCodeCamp",
   "main": "index.js",
