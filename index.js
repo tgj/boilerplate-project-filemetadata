@@ -16,18 +16,24 @@ const upload = require("./middleware/upload");
 
 app.post("/api/fileanalyse", upload.single("upfile"), async (req, res) => {
   try {
-    const { filename, originalname, mimetype, size } = req.file;
-    const path = __dirname + "/uploads/" + filename;
-    fs.unlinkSync(path);
-    console.log(`Removed file at path: ${path}`);
-    res.json({
-      name: originalname,
-      type: mimetype,
-      size: size,
-    });
+    if (req.file) {
+      const { filename, originalname, mimetype, size } = req.file;
+      const path = __dirname + "/uploads/" + filename;
+      fs.unlinkSync(path);
+      console.log(`Removed file at path: ${path}`);
+      res.json({
+        name: originalname,
+        type: mimetype,
+        size: size,
+      });
+    } else {
+      res.json({
+        error: "Error: empty file"
+      });
+    }
   } catch (err) {
     console.error(err);
-    res.json({ error });
+    res.json({ err });
   }
 });
 
